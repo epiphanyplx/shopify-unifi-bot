@@ -1,4 +1,3 @@
-from pickle import FALSE
 import urllib, json
 import sys
 import urllib.request
