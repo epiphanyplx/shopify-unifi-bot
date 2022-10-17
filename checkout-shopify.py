@@ -52,7 +52,7 @@ password = 'password'
 checkoutDetails = 'checkout[shipping_address][first_name]='+ first_name +'&checkout[shipping_address][last_name]='+ family_name +'&checkout[email]='+ email +'&checkout[shipping_address][address1]='+ address +'&checkout[shipping_address][city]='+ city +'&checkout[shipping_address][zip]='+ postcode +'&checkout[shipping_address][country_code]='+ country +'&&checkout[shipping_address][province_code]='+ state +'&checkout[shipping_address][phone]='+ mobile;
 
 for i in data['product']['variants']: 
-    if (i['inventory_empty'] == 'false'):
+    #if (i['inventory_empty'] == 'false'):
         link = domain + '/cart/'+ str(i['id']) +':'+ quantity +'?'+ checkoutDetails;
         
         # Add to Cart
