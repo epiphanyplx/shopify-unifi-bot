@@ -10,7 +10,6 @@ Download [chromedriver](https://chromedriver.chromium.org/) and save in the `che
 
 - Add your `user information` for the checkout.
 - Change `domain` and `handle` details.
-- Change `shoeSize` and `quantity`.
 
 ```
 ➜  checkout-shopify git:(master) ✗ python checkout-shopify.py
@@ -26,10 +25,7 @@ Download [chromedriver](https://chromedriver.chromium.org/) and save in the `che
 ```
 
 ## Information
-The script was tested in the [Culture Kings](https://www.culturekings.com.au) store therefore you might need to change a few details depending on the Shopify Store.
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+I made changes to this to work with Unifi in order to get a doorbell a while back. It worked then, not maintained. 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
