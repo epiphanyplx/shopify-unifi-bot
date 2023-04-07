@@ -30,11 +30,11 @@ CCVerification="111"
 # Site information
 domain = "https://store.ui.com"
 handle = "uvc-g4-doorbell"
-#handle = 'g4-doorbell-pro-poe-adapter'
-url = domain + "/products/" + handle + ".json"
+jsonurl = domain + "/products/" + handle + ".json"
 
 # Product information
 quantity = "1"
+inventory = "1"
 
 options = webdriver.ChromeOptions()
 options.add_argument("--incognito")
@@ -43,32 +43,36 @@ options.add_argument("--disable-gpu")
 #options.add_argument("--headless") # Comment that line to see script running in Chrome.
 driver = webdriver.Chrome(options=options)
 
-response = urllib.request.urlopen(url)
-data = json.loads(response.read())
+jsonresponse = urllib.request.urlopen(jsonurl)
+data = json.loads(jsonresponse.read())
+
 username = 'email'
 password = 'password'
 
 checkoutDetails = 'checkout[shipping_address][first_name]='+ first_name +'&checkout[shipping_address][last_name]='+ family_name +'&checkout[email]='+ email +'&checkout[shipping_address][address1]='+ address +'&checkout[shipping_address][city]='+ city +'&checkout[shipping_address][zip]='+ postcode +'&checkout[shipping_address][country_code]='+ country +'&&checkout[shipping_address][province_code]='+ state +'&checkout[shipping_address][phone]='+ mobile;
 
-for i in data['product']['variants']: 
-    #if (i['inventory_empty'] == 'false'):
+while True:
+    for i in data['product']['variants']: 
         link = domain + '/cart/'+ str(i['id']) +':'+ quantity +'?'+ checkoutDetails;
-        
+    
         # Add to Cart
         driver.get(link)
         print('1. Added to the cart...');
 
         # Log in
         driver.find_element(By.CLASS_NAME,'loginLink').click()
-        time.sleep(2)
+        time.sleep(1)
         driver.find_element(By.NAME,'username').send_keys(username);
         driver.find_element(By.NAME,'password').send_keys(password);
         driver.find_element(By.CSS_SELECTOR,'button').click()
         print('2. Logged in...');
         
         # Choose residential and click continue to shipping
-        time.sleep(2)
-        driver.find_element(By.ID,'ct__radio-btn-residential').click()
+        time.sleep(3)
+        try:
+            driver.find_element(By.ID,'ct__radio-btn-residential').click()
+        except: 
+            print('Out of stock');
         driver.find_element(By.ID,'continue_button').click()
         print('3. Selecting Shipping...');
         
@@ -90,7 +94,7 @@ for i in data['product']['variants']:
         driver.find_element(By.ID,"number").send_keys(CCNumber2);
         driver.find_element(By.ID,"number").send_keys(CCNumber3);
         driver.find_element(By.ID,"number").send_keys(CCNumber4);
-    
+
         driver.switch_to.parent_frame();
 
         #Enter name
